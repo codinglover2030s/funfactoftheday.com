@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Fact of The Day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cossette+Texte:wght@400;700&family=Cossette+Titre:wght@400;700&family=Dancing+Script:wght@400..700&family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=Honk&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libertinus+Keyboard&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oi&family=Playwrite+CA:wght@100..400&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Story+Script&family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
+<style>
+.factgeneratingbutton {
+padding:5px;
+background-color:beige;
+border:5px solid red;
+font-family:Dancing Script;
+font-weight:bolder;
+font-size:xx-large;
+}
+.factgeneratingbutton:hover  {
+background-color:rgb(214, 128, 8);
+}
+.backgroundcolormulti {
+height:200px;
+background:linear-gradient(135deg, #000000, #E83E8C, #FFFFFF);
+-webkit-appearance:none;
+-moz-appearance:none;
+appearance:none;
+
+}
+body {
+display:flex;
+align-items:center;
+text-align:center;
+justify-content:center;
+font-family:Story Script;
+font-weight:bolder;
+margin:0;
+min-height:100vh;
+font-size:xx-large;
+}
+h1 {color:blanchedalmond;}
+p {color:rgb(230, 228, 228);}
+</style>
+</head>
+<body class="backgroundcolormulti">
+<div class="center-aligning">
+<h1>Create Your Fun Fact Now!</h1>
+<br>
+<p>Click the button to generate a fact.</p>
+<br>
+<button id="UserButton" class="factgeneratingbutton">Generate Fact</button>
+<p id="FACTRESULT"></p>
+</div>
+<script>
+const Result=document.getElementById('FACTRESULT')
+const BUTTONUSER=document.getElementById('UserButton')
+const FactsAPI='https://uselessfacts.jsph.pl/random.json?language=en'
+
+function GenerateFact() {
+Result.textContent='Generating an interesting fact....';
+fetch(FactsAPI)
+.then(response=> {
+if(!response.ok) {
+throw new Error('Fact could not be generated! Pls retry with a stable connection!');
+}
+return response.json();
+})
+.then(data=>{
+console.log(data)
+Result.textContent=data.text;
+})
+.catch(error=> {
+console.error('Error', error)
+Result.textContent='Error! Pls try again!'
+});
+}
+BUTTONUSER.addEventListener('click', GenerateFact)
+</script>
+</body>
+</html>
